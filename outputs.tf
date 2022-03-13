@@ -151,3 +151,14 @@ output "aws_auth_configmap_yaml" {
   description = "Formatted yaml output for base aws-auth configmap containing roles used in cluster node groups/fargate profiles"
   value       = module.eks.aws_auth_configmap_yaml
 }
+
+
+output "region" {
+  description = "AWS region"
+  value       = var.region
+}
+
+output "cluster_name" {
+  description = "Kubernetes Cluster Name"
+  value       = local.cluster_name
+}

@@ -16,3 +16,6 @@ variable "cluster_name" {
   default = "EKS cluster name"
 }
 
+variable "region" {
+  default = "eu-central-1"
+}
