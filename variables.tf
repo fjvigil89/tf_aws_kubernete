@@ -19,3 +19,7 @@ variable "cluster_name" {
 variable "region" {
   default = "eu-central-1"
 }
+
+variable "environment" {
+  default = "testing"
+}

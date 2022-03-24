@@ -21,14 +21,24 @@ module "eks" {
     resources        = ["secrets"]
   }]
 
-  vpc_id     = module.vpc.vpc_id
+  vpc_id = module.vpc.vpc_id
   #subnet_ids = ["subnet-abcde012", "subnet-bcde012a", "subnet-fghi345a"]
   subnet_ids = module.vpc.private_subnets
   # Self Managed Node Group(s)
   self_managed_node_group_defaults = {
     instance_type                          = "t2.micro"
     update_launch_template_default_version = true
-    iam_role_additional_policies           = ["arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"]
+    #iam_role_additional_policies           = [aws_iam_role.nodes.arn]
+    iam_role_additional_policies           = [
+      "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore", 
+      "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy",
+      "arn:aws:iam::aws:policy/AdministratorAccess",
+      "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
+      "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
+      "arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess",
+      "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+
+      ]
   }
 
   self_managed_node_groups = {
@@ -142,3 +152,5 @@ module "eks" {
     Terraform   = "true"
   }
 }
+
+
